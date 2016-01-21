@@ -9,7 +9,7 @@ var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
 	return gulp.src('app/styles/main.scss')
-		.pipe($.rubySass({
+		.pipe($.sass({
 			style: 'expanded',
 			precision: 10
 		}))
@@ -41,7 +41,7 @@ gulp.task('html', ['styles', 'scripts'], function () {
 	var cssFilter = $.filter('**/*.css');
 
 	return gulp.src('app/*.html')
-		.pipe($.useref.assets({searchPath: '{.tmp,app}'}))
+		.pipe($.useref.assets({searchPath: ['.tmp', 'app']}))
 		.pipe(jsFilter)
 		.pipe($.uglify())
 		.pipe(jsFilter.restore())
